@@ -3,11 +3,11 @@
 USE H_Accounting;
 
 -- drop store procedure if the table with same name exist
-DROP PROCEDURE IF EXISTS H_Accounting.hkyaw_tmp;
+DROP PROCEDURE IF EXISTS H_Accounting.jnistal_tmp;
 DELIMITER $$
 
 -- create store procedure with one paramenter
-CREATE PROCEDURE H_Accounting.hkyaw_tmp(varCalendarYear SMALLINT)
+CREATE PROCEDURE H_Accounting.jnistal_tmp(varCalendarYear SMALLINT)
 
 -- main store procedure execute
 BEGIN
@@ -925,10 +925,10 @@ SET varCashFlowChangedPercent = (varCashFlowCurrentYear - varCashFlowLastYear) /
 END;
  
 -- check there the table with the same name exist, if so replace the existing ones
-DROP TABLE IF EXISTS H_Accounting.hkyaw_tmp;
+DROP TABLE IF EXISTS H_Accounting.jnistal_tmp;
   
 -- create a new table with necessary columns for income statement, balance sheet, and cash flow statement 
-CREATE TABLE H_Accounting.hkyaw_tmp
+CREATE TABLE H_Accounting.jnistal_tmp
 (profit_loss_line_number INT, 
  label VARCHAR(50), 
      varAmount VARCHAR(50), 
@@ -949,7 +949,7 @@ CREATE TABLE H_Accounting.hkyaw_tmp
 );
   
 -- insert table title, and units
-  INSERT INTO H_Accounting.hkyaw_tmp
+  INSERT INTO H_Accounting.jnistal_tmp
    (profit_loss_line_number, label, varAmount, varAmountLastYear, varPercentChange, seperator, 
     balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
     cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
@@ -958,7 +958,7 @@ VALUES (1, '', "In '000s of USD", "In '000s of USD","In %", "  ||  ",
         1, '', "In '000s of USD", "In '000s of USD","In %");
 
 -- insert empty line
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount, varAmountLastYear, varPercentChange, seperator, 
  balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
  cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
@@ -968,7 +968,7 @@ VALUES  (2, '----------------------------------------', '--------------------', 
     
     
 -- insert total revenue record, current assets, and net income variables
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount, varAmountLastYear, varPercentChange, seperator, 
  balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
  cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
@@ -978,7 +978,7 @@ VALUES  (3, 'Total Revenues', format(varTotalRevenues, 2), format(varTotalRevenu
 
 
  -- insert total cost of good sold, fixed assets, and depreciation variables
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount, varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (4, 'Total Cost of Good Sold', format(varTotalCOGS, 2), format(varTotalCOGSLastYear, 2), CONCAT(format(varCOGSChangedPercent, 2),'%'), "  ||  ", 
@@ -987,7 +987,7 @@ VALUES  (4, 'Total Cost of Good Sold', format(varTotalCOGS, 2), format(varTotalC
 
     
 -- insert deferred assets, account receivable variables
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount,  varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (5, '----------------------------------------', '--------------------', '--------------------', '--------------', "  ||  ", 
@@ -996,7 +996,7 @@ VALUES  (5, '----------------------------------------', '--------------------', 
     
     
 -- insert gross profit, and account payable variables
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount,  varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (6, '   Gross Profit', format(varGrossProfitCurrentYear,2), format(varGrossProfitLastYear,2), CONCAT(format(varGrossProfitChangedPercent,2),'%'),"  ||  ", 
@@ -1005,7 +1005,7 @@ VALUES  (6, '   Gross Profit', format(varGrossProfitCurrentYear,2), format(varGr
     
     
  -- insert total selling expense record, total assets varialbes 
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount, varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (7, 'Selling Expense', format(varTotalSellingExpense, 2), format(varTotalSellingExpenseLastYear, 2), CONCAT(format(varSellingExpenseChangedPercent,2),'%'), "  ||  ",
@@ -1014,7 +1014,7 @@ VALUES  (7, 'Selling Expense', format(varTotalSellingExpense, 2), format(varTota
     
     
  -- operation cash flow variables
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount,  varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (8, '----------------------------------------', '--------------------', '--------------------', '--------------', "  ||  ", 
@@ -1024,7 +1024,7 @@ VALUES  (8, '----------------------------------------', '--------------------', 
 
 
 -- insert operating profit variables
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount, varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (9, '   Operating Profit', format(varOperationProfitCurrentYear,2), format(varOperationProfitLastYear,2), CONCAT(format(varOperationProfitChangedPercent,2),'%'),"  ||  ", 
@@ -1033,7 +1033,7 @@ VALUES  (9, '   Operating Profit', format(varOperationProfitCurrentYear,2), form
  
  
  -- insert total other expense, current liabilities, and equipments variables
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount, varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (10, 'Total Other Expense', format(varTotalOtherExpense,2), format(varTotalOtherExpenseLastYear,2), CONCAT(format(varOtherExpenseChangedPercent,2),'%'), "  ||  ", 
@@ -1042,7 +1042,7 @@ VALUES  (10, 'Total Other Expense', format(varTotalOtherExpense,2), format(varTo
     
     
 -- insert total other income, long term liabilities variables
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount, varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (11, 'Total Other Income', format(varTotalOtherIncome,2), format(varTotalOtherIncomeLastYear,2), CONCAT(format(varOtherIncomeChangedPercent,2),'%'),"  ||  ", 
@@ -1052,7 +1052,7 @@ VALUES  (11, 'Total Other Income', format(varTotalOtherIncome,2), format(varTota
 
  
 -- insert defferred liabilities, net cash flow for investing variables
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount,  varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (12, '----------------------------------------', '--------------------', '--------------------', '--------------', "  ||  ", 
@@ -1062,7 +1062,7 @@ VALUES  (12, '----------------------------------------', '--------------------',
 
 
 -- insert earning before tax variables
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount, varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (13, '   Earning Before Tax', format(varEarningBeforeTaxCurrentYear,2), format(varOperationProfitLastYear,2), CONCAT(format(varEarningBeforeTaxChangedPercent,2),'%'), "  ||  ", 
@@ -1072,7 +1072,7 @@ VALUES  (13, '   Earning Before Tax', format(varEarningBeforeTaxCurrentYear,2), 
  
  
  -- insert total income tax record, total liabilities, and equity variables
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount, varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (14, 'Total Income Tax', format(varTotalIncomeTax,2), format(varTotalIncomeTaxLastYear,2), CONCAT(format(varIncomeTaxChangedPercent,2),'%'),"  ||  ", 
@@ -1081,7 +1081,7 @@ VALUES  (14, 'Total Income Tax', format(varTotalIncomeTax,2), format(varTotalInc
     
     
 -- iinsert loan pyable variables
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount,  varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (15, '----------------------------------------', '--------------------', '--------------------', '--------------', "  ||  ", 
@@ -1091,7 +1091,7 @@ VALUES  (15, '----------------------------------------', '--------------------',
     
     
 -- insert net profit variables
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount, varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (16, '   Net Profit', format(varNetIncomeCurrentYear,2), format(varNetIncomeLastYear,2), CONCAT(format(varNetIncomeChangedPercent,2),'%'),  "  ||  ", 
@@ -1100,7 +1100,7 @@ VALUES  (16, '   Net Profit', format(varNetIncomeCurrentYear,2), format(varNetIn
 
 
 -- insert total quity, and financing cash flow variables
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount,  varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (17, '====================', '==========', '==========', '=======', "  ||  ", 
@@ -1108,7 +1108,7 @@ VALUES  (17, '====================', '==========', '==========', '=======', "  |
          17, '   Net Cash Flow From Financing', format(varNetCashFromFinancingCurrentYear, 2), format(varNetCashFromFinancingLastYear, 2), CONCAT(format(varNetCashFromFinancingDebtorChangedPercent,2),'%'));
 
 -- insert horizontal seperation lines 
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount,  varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (18, '', '-', '', '', "  ||  ", 
@@ -1116,7 +1116,7 @@ VALUES  (18, '', '-', '', '', "  ||  ",
          18, '----------------------------------------', '--------------------', '--------------------', '--------------');
     
 -- insert liabilities + equity variables    
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount,  varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (19, '', '-', '', '', "  ||  ", 
@@ -1125,7 +1125,7 @@ VALUES  (19, '', '-', '', '', "  ||  ",
 
 
  -- insert horizontal seperation line
-INSERT INTO H_Accounting.hkyaw_tmp
+INSERT INTO H_Accounting.jnistal_tmp
 (profit_loss_line_number, label, varAmount,  varAmountLastYear, varPercentChange, seperator, balanceSheetLineNumber, blLabel, blAmount, blAmountLastYear, blPercentChange, seperator2, 
 cashFlowLineNumber, cfLabel, cfAmount, cfAmountLastYear, cfPercentChange)
 VALUES  (20, '', '', '', '', "  ||  ", 
@@ -1140,11 +1140,11 @@ END $$
 
 DELIMITER ;
 # THE LINE ABOVES CHANGES BACK OUR DELIMETER TO OUR USUAL ;
-CALL H_Accounting.hkyaw_tmp (2019);
+CALL H_Accounting.jnistal_tmp (2019);
 
 -- named column titles
 SELECT 'NO.', 'PROFIT AND LOSS STATEMENT', 'CURRENT YEAR', 'LAST YEAR', '% CHANGE', '  ||  ', 
 	   'NO.', 'BALANCE SHEET STATEMENT', 'CURRENT YEAR', 'LAST YEAR', '% CHANGE', '  ||  ',  
        'NO.', 'CASH FLOW STATEMENT', 'CURRENT YEAR', 'LAST YEAR', '% CHANGE'
 UNION ALL
-SELECT	* FROM H_Accounting.hkyaw_tmp;
+SELECT	* FROM H_Accounting.jnistal_tmp;
